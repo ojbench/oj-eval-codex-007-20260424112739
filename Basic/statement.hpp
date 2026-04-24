@@ -74,6 +74,67 @@ public:
 };
 
 
+// Concrete statements
+
+class RemStatement : public Statement {
+public:
+    explicit RemStatement(TokenScanner &scanner);
+    void execute(EvalState &state, Program &program) override;
+};
+
+class LetStatement : public Statement {
+public:
+    explicit LetStatement(TokenScanner &scanner);
+    ~LetStatement();
+    void execute(EvalState &state, Program &program) override;
+private:
+    Expression *exp = nullptr;
+};
+
+class PrintStatement : public Statement {
+public:
+    explicit PrintStatement(TokenScanner &scanner);
+    ~PrintStatement();
+    void execute(EvalState &state, Program &program) override;
+private:
+    Expression *exp = nullptr;
+};
+
+class InputStatement : public Statement {
+public:
+    explicit InputStatement(TokenScanner &scanner);
+    void execute(EvalState &state, Program &program) override;
+private:
+    std::string var;
+};
+
+class EndStatement : public Statement {
+public:
+    explicit EndStatement(TokenScanner &scanner);
+    void execute(EvalState &state, Program &program) override;
+};
+
+class GotoStatement : public Statement {
+public:
+    explicit GotoStatement(TokenScanner &scanner);
+    void execute(EvalState &state, Program &program) override;
+private:
+    int target;
+};
+
+class IfStatement : public Statement {
+public:
+    explicit IfStatement(TokenScanner &scanner);
+    ~IfStatement();
+    void execute(EvalState &state, Program &program) override;
+private:
+    Expression *lhs = nullptr;
+    Expression *rhs = nullptr;
+    std::string op;
+    int target;
+};
+
+
 /*
  * The remainder of this file must consists of subclass
  * definitions for the individual statement forms.  Each of
