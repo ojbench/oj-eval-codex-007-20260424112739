@@ -141,8 +141,7 @@ void processLine(std::string line, Program &program, EvalState &state) {
         program.clear();
         state.Clear();
     } else if (cmd == "RUN") {
-        // reset state, then execute from first line
-        state.Clear();
+        // execute from first line; keep current variable state
         int current = program.getFirstLineNumber();
         program.setEnd(false);
         while (current != -1) {
