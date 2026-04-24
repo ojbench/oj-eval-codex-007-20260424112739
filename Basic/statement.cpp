@@ -70,7 +70,8 @@ InputStatement::InputStatement(TokenScanner &scanner) {
     if (!scanner.hasMoreTokens()) error("SYNTAX ERROR");
     string tk = scanner.nextToken();
     TokenType tp = scanner.getTokenType(tk);
-    if (tp != WORD) error("SYNTAX ERROR");
+    // Accept both WORD and NUMBER tokens as variable names for INPUT
+    if (tp != WORD && tp != NUMBER) error("SYNTAX ERROR");
     var = tk;
 }
 
